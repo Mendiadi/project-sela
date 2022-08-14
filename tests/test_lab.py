@@ -17,9 +17,9 @@ def init_data():
     return data
 
 @pytest.fixture
-def main_page():
+def main_page(init_data):
     driver = Chrome()
-    driver.get('http://automationpractice.com/index.php')
+    driver.get(init_data.url)
     driver.maximize_window()
     main_page = MainPage(driver)
     yield main_page
@@ -30,4 +30,5 @@ def test_buy_summer(main_page,init_data):
     my_acc_page = autho_page.login(init_data.email,init_data.password)
     main_page_ = my_acc_page.home()
     result_page = main_page_.search("summer")
-
+    dress = result_page.find_cheapest_product()
+    dress.click()
