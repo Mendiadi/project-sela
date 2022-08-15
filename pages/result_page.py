@@ -19,7 +19,7 @@ class ResultPage(BasePage):
         'add_to_card_btn': (By.ID, 'add_to_cart'),
         'checkout_layer': (By.ID, 'layer_cart'),
         'checkout_container': (By.CLASS_NAME, 'button-container'),
-        'checkout_btn': (By.CLASS_NAME, 'btn'),
+        'checkout_btn': (By.TAG_NAME, 'a'),
         'continue_shop': (By.CLASS_NAME, 'continue')
     }
 

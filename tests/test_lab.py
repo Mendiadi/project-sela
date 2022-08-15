@@ -32,10 +32,11 @@ def main_page(init_data):
 
 def test_buy_summer(main_page, init_data):
     autho_page = main_page.sign_in()
-    my_acc_page = autho_page.login(init_data.email, init_data.password)
+    my_acc_page = autho_page.login(email=init_data.email, password=init_data.password)
     main_page_ = my_acc_page.click_home()
     result_page = main_page_.search("summer")
     dress = result_page.find_cheapest_product()
     result_page.add_product_to_cart(dress)
     checkout_page = result_page.process_to_checkout()
+    checkout_page.checkout_and_complete_purchase()
     time.sleep(5)
