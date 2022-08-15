@@ -1,3 +1,5 @@
+import time
+
 import pytest
 from selenium.webdriver import Chrome
 from pages.main_page import MainPage
@@ -11,10 +13,13 @@ def test_buy_summer(main_page):
     searchReslut_page = main_page.search("summer")
 
 """
+
+
 @pytest.fixture
 def init_data():
     data = TestsData.load("init.json")
     return data
+
 
 @pytest.fixture
 def main_page(init_data):
@@ -25,10 +30,12 @@ def main_page(init_data):
     yield main_page
 
 
-def test_buy_summer(main_page,init_data):
+def test_buy_summer(main_page, init_data):
     autho_page = main_page.sign_in()
-    my_acc_page = autho_page.login(init_data.email,init_data.password)
-    main_page_ = my_acc_page.home()
+    my_acc_page = autho_page.login(init_data.email, init_data.password)
+    main_page_ = my_acc_page.click_home()
     result_page = main_page_.search("summer")
     dress = result_page.find_cheapest_product()
-    dress.click()
+    result_page.add_product_to_cart(dress)
+    checkout_page = result_page.process_to_checkout()
+    time.sleep(5)

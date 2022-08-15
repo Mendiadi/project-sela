@@ -12,8 +12,18 @@ class AuthoPage(BasePage):
             "submit_login":(By.ID,"SubmitLogin")
         }
 
-    def login(self,user:str,password:str) -> MyAccountPage:
-        self.locate_element(self._locators['email_entry']).send_keys(user)
-        self.locate_element(self._locators['pass_entry']).send_keys(password)
+
+    def press_sign_in(self) -> None:
         self.locate_element(self._locators['submit_login']).click()
+
+    def send_password(self,password:str)->None:
+        self.locate_element(self._locators['pass_entry']).send_keys(password)
+
+    def send_email(self,email:str) -> None:
+        self.locate_element(self._locators['email_entry']).send_keys(email)
+
+    def login(self,email:str,password:str) -> MyAccountPage:
+        self.send_email(email)
+        self.send_password(password)
+        self.press_sign_in()
         return MyAccountPage(self.driver)
