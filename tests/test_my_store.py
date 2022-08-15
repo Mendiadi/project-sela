@@ -1,18 +1,12 @@
+import logging
 import time
-
+import allure
 import pytest
 from selenium.webdriver import Chrome
 from pages.main_page import MainPage
 from tests.init_json import TestsData
 
-"""
-def test_buy_summer(main_page):
-    Authntication_page = main_page.SignIn()
-    MyAccount_page = Authntication_page.login("user","password")
-    main_page  = MyAccount_page.home()
-    searchReslut_page = main_page.search("summer")
-
-"""
+LOGGER = logging.getLogger(__name__)
 
 
 @pytest.fixture
@@ -22,17 +16,28 @@ def init_data():
 
 
 @pytest.fixture
-def main_page(init_data):
+def main_page(init_data,request):
     driver = Chrome()
     driver.get(init_data.url)
     driver.maximize_window()
     main_page = MainPage(driver)
     yield main_page
+    if request.node.rep_call.failed:
+        try:
+            driver.execute_script("document.body.bgColor = 'white';")
+            allure.attach(driver.get_screenshot_as_png(),
+                          name=request.function.__name__,
+                          attachment_type=allure.attachment_type.PNG)
+        except:
+            pass
+    driver.quit()
+    del main_page
 
 
 def test_login_valid(main_page,init_data):
     autho_page = main_page.sign_in()
     autho_page.login(email=init_data.email,password=init_data.password)
+
 
 def test_login_invalid_password(main_page,init_data):
     autho_page = main_page.sign_in()

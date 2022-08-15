@@ -8,6 +8,8 @@ class TestsData:
     url: str
     email:str
     password:str
+    browser: str
+
 
     @staticmethod
     def load(path:str) -> TestsData:

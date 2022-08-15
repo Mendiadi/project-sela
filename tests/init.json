@@ -1,5 +1,6 @@
 {
   "url": "http://automationpractice.com/index.php",
   "email": "exm1@walla.com",
-  "password": "12345"
+  "password": "12345",
+  "browser": "chrome"
 }

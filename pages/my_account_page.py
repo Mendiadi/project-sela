@@ -13,5 +13,5 @@ class MyAccountPage(BasePage):
 
     def click_home(self) -> "MainPage":
         from pages.main_page import MainPage
-        self.locate_element(self.locators['icon_home']).click()
+        self.locate_element(self.locators['icon_home'],mark=True).click()
         return MainPage(self.driver)
