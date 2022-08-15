@@ -5,7 +5,7 @@ import pytest
 from selenium.webdriver import Chrome
 from pages.main_page import MainPage
 from tests.init_json import TestsData
-
+from commons.driver import Driver
 LOGGER = logging.getLogger(__name__)
 
 
@@ -16,11 +16,12 @@ def init_data():
 
 
 @pytest.fixture
-def main_page(init_data,request):
+def main_page(init_data, request):
     driver = Chrome()
     driver.get(init_data.url)
     driver.maximize_window()
-    main_page = MainPage(driver)
+    init_driver = Driver(driver)
+    main_page = MainPage(init_driver)
     yield main_page
     if request.node.rep_call.failed:
         try:
@@ -34,18 +35,19 @@ def main_page(init_data,request):
     del main_page
 
 
-def test_login_valid(main_page,init_data):
+def test_login_valid(main_page, init_data):
     autho_page = main_page.sign_in()
-    autho_page.login(email=init_data.email,password=init_data.password)
+    autho_page.login(email=init_data.email, password=init_data.password)
 
 
-def test_login_invalid_password(main_page,init_data):
+def test_login_invalid_password(main_page, init_data):
     autho_page = main_page.sign_in()
-    autho_page.login(email=init_data.email,password="11")
+    autho_page.login(email=init_data.email, password="11")
 
-def test_login_wrong_password(main_page,init_data):
+
+def test_login_wrong_password(main_page, init_data):
     autho_page = main_page.sign_in()
-    autho_page.login(email=init_data.email,password="mypass11")
+    autho_page.login(email=init_data.email, password="mypass11")
 
 
 def test_login_wrong_email(main_page, init_data):
@@ -57,13 +59,16 @@ def test_login_without_email(main_page, init_data):
     autho_page = main_page.sign_in()
     autho_page.login(email="", password="mypass11")
 
+
 def test_login_without_password(main_page, init_data):
     autho_page = main_page.sign_in()
     autho_page.login(email=init_data.email, password="")
 
+
 def test_login_without_email_and_password(main_page, init_data):
     autho_page = main_page.sign_in()
     autho_page.login(email="", password="")
+
 
 def test_buy_summer(main_page, init_data):
     autho_page = main_page.sign_in()
