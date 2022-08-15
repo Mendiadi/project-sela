@@ -30,6 +30,36 @@ def main_page(init_data):
     yield main_page
 
 
+def test_login_valid(main_page,init_data):
+    autho_page = main_page.sign_in()
+    autho_page.login(email=init_data.email,password=init_data.password)
+
+def test_login_invalid_password(main_page,init_data):
+    autho_page = main_page.sign_in()
+    autho_page.login(email=init_data.email,password="11")
+
+def test_login_wrong_password(main_page,init_data):
+    autho_page = main_page.sign_in()
+    autho_page.login(email=init_data.email,password="mypass11")
+
+
+def test_login_wrong_email(main_page, init_data):
+    autho_page = main_page.sign_in()
+    autho_page.login(email="wrong!email@aa.co", password="mypass11")
+
+
+def test_login_without_email(main_page, init_data):
+    autho_page = main_page.sign_in()
+    autho_page.login(email="", password="mypass11")
+
+def test_login_without_password(main_page, init_data):
+    autho_page = main_page.sign_in()
+    autho_page.login(email=init_data.email, password="")
+
+def test_login_without_email_and_password(main_page, init_data):
+    autho_page = main_page.sign_in()
+    autho_page.login(email="", password="")
+
 def test_buy_summer(main_page, init_data):
     autho_page = main_page.sign_in()
     my_acc_page = autho_page.login(email=init_data.email, password=init_data.password)
