@@ -16,22 +16,28 @@ def init_data():
 
 
 @pytest.fixture
-def main_page(init_data, request):
+def driver_fix(init_data):
     driver = Chrome()
     driver.get(init_data.url)
     driver.maximize_window()
-    init_driver = Driver(driver)
+    yield driver
+    driver.quit()
+
+
+@pytest.fixture
+def main_page(driver_fix, request):
+    init_driver = Driver(driver_fix)
     main_page = MainPage(init_driver)
     yield main_page
     if request.node.rep_call.failed:
         try:
-            driver.execute_script("document.body.bgColor = 'white';")
-            allure.attach(driver.get_screenshot_as_png(),
+            init_driver.script_execute("document.body.bgColor = 'white';")
+            allure.attach(init_driver.get_screenshot(),
                           name=request.function.__name__,
                           attachment_type=allure.attachment_type.PNG)
         except:
             pass
-    driver.quit()
+    del init_driver
     del main_page
 
 
@@ -99,7 +105,7 @@ def test_login_without_email_and_password(main_page, init_data):
 
 
 @pytest.mark.valid
-def test_buy_summer(main_page, init_data):
+def test_login_search_buy_cheapest(main_page, init_data):
     LOGGER.info(f"login search choose cheapest dress and buy.")
     authentication_page = main_page.sign_in()
     my_acc_page = authentication_page.login(email=init_data.email, password=init_data.password)

@@ -54,6 +54,21 @@ class Driver:
         """
         self._driver.switch_to.default_content()
 
+    def script_execute(self, __script: str):
+        """
+        Executing given JS script
+        :param __script: string of JS script
+        """
+        self._driver.execute_script(__script)
+
+    def get_screenshot(self) -> "Bytes":
+        """
+        Get driver screenshot
+        :return: screenshot
+        :rtype: Bytes
+        """
+        return self._driver.get_screenshot_as_png()
+
     @property
     def title(self) -> str:
         """
