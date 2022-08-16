@@ -61,11 +61,11 @@ class Driver:
         """
         self._driver.execute_script(__script)
 
-    def get_screenshot(self) -> "Bytes":
+    def get_screenshot(self) -> bytes:
         """
         Get driver screenshot
         :return: screenshot
-        :rtype: Bytes
+        :rtype: bytes
         """
         return self._driver.get_screenshot_as_png()
 
