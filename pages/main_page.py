@@ -17,5 +17,6 @@ class MainPage(BasePage):
         :return: object of authentication page
         :rtype: AuthenticationPage
         """
-        self.driver.click(self._locators['sign_in'])
+        sign_in_btn = self.driver.locate_element(self._locators['sign_in'])
+        sign_in_btn.click()
         return AuthenticationPage(self.driver)

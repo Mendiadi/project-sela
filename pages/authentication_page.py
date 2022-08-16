@@ -26,14 +26,14 @@ class AuthenticationPage(BasePage):
         Perform send password to entry.
         :param password: (string) your password
         """
-        self.driver.locate_element(self._locators['pass_entry']).send_keys(password)
+        self.driver.locate_element(self._locators['pass_entry']).fill(password)
 
     def send_email(self, email: str) -> None:
         """
         Perform send email to entry.
         :param email: (string) your email
         """
-        self.driver.locate_element(self._locators['email_entry']).send_keys(email)
+        self.driver.locate_element(self._locators['email_entry']).fill(email)
 
     def login(self, email: str, password: str) -> MyAccountPage:
         """
@@ -55,4 +55,4 @@ class AuthenticationPage(BasePage):
         :rtype: str
         """
         layer = self.driver.locate_element(self._locators['message_layer'])
-        return self.driver.locate_element(self._locators['message_text'], layer).text
+        return self.driver.locate_element(self._locators['message_text'], layer).text_content()
