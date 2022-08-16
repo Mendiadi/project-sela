@@ -1,9 +1,9 @@
 import logging
 import allure
 import pytest
-from selenium.webdriver import Chrome,Firefox
+from selenium.webdriver import Chrome, Firefox
 from pages.main_page import MainPage
-from commons.init_json import TestsData,CHROME,FIREFOX
+from commons.init_json import TestsData, CHROME, FIREFOX
 from commons.driver import Driver
 
 LOGGER = logging.getLogger(__name__)
@@ -29,6 +29,7 @@ def driver_fix(init_data):
         driver.maximize_window()
         yield driver
         driver.quit()
+
 
 @pytest.fixture
 def main_page(driver_fix, request):

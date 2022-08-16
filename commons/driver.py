@@ -85,3 +85,7 @@ class Driver:
         :rtype: str
         """
         return self._driver.title
+
+
+    def text(self,locator) -> str:
+        return locator.text

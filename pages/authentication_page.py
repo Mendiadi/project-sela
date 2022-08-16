@@ -58,4 +58,6 @@ class AuthenticationPage(BasePage):
         :rtype: str
         """
         layer = self.driver.locate_element(self._locators['message_layer'])
-        return self.driver.locate_element(self._locators['message_text'], layer).text
+        text = self.driver.locate_element(self._locators['message_text'], layer)
+        return self.driver.text(text)
+
