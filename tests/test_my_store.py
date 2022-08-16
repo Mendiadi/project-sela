@@ -101,6 +101,13 @@ def test_login_without_password(main_page, init_data):
     LOGGER.info(f"title: {authentication_page.title},msg: {authentication_page.get_authentication_message()}")
     assert authentication_page.get_authentication_message() == 'Password is required.'
 
+@pytest.mark.invalid
+def test_login_invalid_email(main_page, init_data):
+    LOGGER.info("login without password test ")
+    authentication_page = main_page.sign_in()
+    authentication_page.login(email="v4vh666", password="bnv")
+    LOGGER.info(f"title: {authentication_page.title},msg: {authentication_page.get_authentication_message()}")
+    assert authentication_page.get_authentication_message() == 'Invalid email address.'
 
 @pytest.mark.invalid
 def test_login_without_email_and_password(main_page, init_data):
