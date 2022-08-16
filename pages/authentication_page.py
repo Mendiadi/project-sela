@@ -27,14 +27,16 @@ class AuthenticationPage(BasePage):
         Perform send password to entry.
         :param password: (string) your password
         """
-        self.driver.locate_element(self._locators['pass_entry']).send_keys(password)
+        input_ = self.driver.locate_element(self._locators['pass_entry'])
+        self.driver.send_keys(input_, password)
 
     def send_email(self, email: str) -> None:
         """
         Perform send email to entry.
-        :param password: (string) your email
+        :param email: (string) your email
         """
-        self.driver.locate_element(self._locators['email_entry']).send_keys(email)
+        input_ = self.driver.locate_element(self._locators['email_entry'])
+        self.driver.send_keys(input_, email)
 
     def login(self, email: str, password: str) -> MyAccountPage:
         """

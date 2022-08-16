@@ -8,6 +8,10 @@ class Driver:
     def __init__(self, driver: webdriver):
         self._driver = driver
 
+    @staticmethod
+    def send_keys(locator: WebElement, keys: str) -> None:
+        locator.send_keys(keys)
+
     def locate_element(self, locator: tuple[[], str], driver: [] = None, wait: int = 5, mark=False) -> WebElement:
         """
         Locating element with wait timeout and option to mark that element
@@ -30,7 +34,6 @@ class Driver:
        Locating elements with wait timeout and option to mark that elements
        :param locator: tuple - (By,str) - locator
        :param wait: timeout wait - int
-       :param mark: bool - True to mark , False to not mark
        :return: the element that found
        :rtype: [WebElement]
         """
