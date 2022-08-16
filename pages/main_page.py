@@ -1,5 +1,4 @@
 from commons.driver import Driver
-from selenium.webdriver.common.by import By
 from pages.base_page import BasePage
 from pages.authentication_page import AuthenticationPage
 
@@ -9,7 +8,7 @@ class MainPage(BasePage):
         super().__init__(driver)
 
     _locators = {
-        "sign_in": (By.CLASS_NAME, "login"),
+        "sign_in": ".login"
     }
 
     def sign_in(self) -> AuthenticationPage:
@@ -18,6 +17,5 @@ class MainPage(BasePage):
         :return: object of authentication page
         :rtype: AuthenticationPage
         """
-        sign_in_btn = self.driver.locate_element(self._locators['sign_in'])
-        sign_in_btn.click()
+        self.driver.click(self._locators['sign_in'])
         return AuthenticationPage(self.driver)

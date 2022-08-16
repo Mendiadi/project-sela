@@ -1,6 +1,5 @@
 from pages.base_page import BasePage
 from commons.driver import Driver
-from selenium.webdriver.common.by import By
 from pages.my_account_page import MyAccountPage
 
 
@@ -9,11 +8,11 @@ class AuthenticationPage(BasePage):
         super().__init__(driver)
 
     _locators = {
-        "email_entry": (By.NAME, 'email'),
-        "pass_entry": (By.NAME, 'passwd'),
-        "submit_login": (By.ID, "SubmitLogin"),
-        "message_layer": (By.CLASS_NAME, 'alert'),
-        "message_text": (By.TAG_NAME, 'li')
+        "email_entry": '[name=email]',
+        "pass_entry": '[name=passwd]',
+        "submit_login": "id=SubmitLogin",
+        "message_layer": '.alert',
+        "message_text": 'li'
     }
 
     def press_sign_in(self) -> None:
@@ -32,7 +31,7 @@ class AuthenticationPage(BasePage):
     def send_email(self, email: str) -> None:
         """
         Perform send email to entry.
-        :param password: (string) your email
+        :param email: (string) your email
         """
         self.driver.locate_element(self._locators['email_entry']).send_keys(email)
 

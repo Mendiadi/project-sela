@@ -1,11 +1,11 @@
 import logging
 import allure
 import pytest
-from selenium.webdriver import Chrome,Firefox
+from playwright.sync_api import sync_playwright
 from pages.main_page import MainPage
 from commons.init_json import TestsData,CHROME,FIREFOX
 from commons.driver import Driver
-
+import ctypes
 LOGGER = logging.getLogger(__name__)
 
 
@@ -17,18 +17,23 @@ def init_data():
 
 @pytest.fixture
 def driver_fix(init_data):
+    user32 = ctypes.windll.user32
+    screensize = {"width": user32.GetSystemMetrics(78), "height": user32.GetSystemMetrics(79)}
     if init_data.browser == CHROME:
-        driver = Chrome()
-        driver.get(init_data.url)
-        driver.maximize_window()
-        yield driver
-        driver.quit()
+        with sync_playwright() as p:
+            driver = p.chromium.launch(headless=False)
+            page = driver.new_page()
+            page.set_viewport_size(screensize)
+            yield page
+            driver.close()
+
     if init_data.browser == FIREFOX:
-        driver = Firefox()
-        driver.get(init_data.url)
-        driver.maximize_window()
-        yield driver
-        driver.quit()
+        with sync_playwright() as p:
+            driver = p.firefox.launch(headless=False)
+            page = driver.new_page()
+            page.set_viewport_size(screensize)
+            yield page
+            driver.close()
 
 @pytest.fixture
 def main_page(driver_fix, request):

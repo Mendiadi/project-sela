@@ -1,5 +1,4 @@
 from commons.driver import Driver
-from selenium.webdriver.common.by import By
 
 
 class BasePage:
@@ -7,8 +6,8 @@ class BasePage:
         self.driver = driver
 
     _common_locators = {
-        "search": (By.NAME, 'submit_search'),
-        "search_q": (By.ID, 'search_query_top')
+        "search": '[name=submit_search]',
+        "search_q": 'id=search_query_top'
     }
 
     def search(self, query: str) -> "ResultPage":
@@ -22,7 +21,6 @@ class BasePage:
         self.driver.locate_element(self._common_locators['search_q']).send_keys(query)
         self.driver.locate_element(self._common_locators['search']).click()
         return ResultPage(self.driver)
-
 
     @property
     def title(self) -> str:

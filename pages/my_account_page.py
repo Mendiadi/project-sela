@@ -1,6 +1,6 @@
 from pages.base_page import BasePage
 from commons.driver import Driver
-from selenium.webdriver.common.by import By
+
 
 
 class MyAccountPage(BasePage):
@@ -8,7 +8,7 @@ class MyAccountPage(BasePage):
         super().__init__(driver)
 
     _locators = {
-        'icon_home': (By.CLASS_NAME, 'icon-home')
+        'icon_home': '.icon-home'
     }
 
     def click_home(self) -> "MainPage":

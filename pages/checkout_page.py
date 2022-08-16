@@ -1,5 +1,4 @@
 from pages.base_page import BasePage
-from selenium.webdriver.common.by import By
 from commons.driver import Driver
 
 
@@ -8,13 +7,12 @@ class CheckOutPage(BasePage):
         super().__init__(driver)
 
     _locators = {
-        'checkout_step_layer': (By.CLASS_NAME, 'cart_navigation'),
-        'checkout_step_btn': (By.CLASS_NAME, 'button'),
-        'checkout_checker_btn': (By.ID, 'uniform-cgv'),
-        'pay_hook_id': (By.ID, 'HOOK_PAYMENT'),
-        'pay_hook_class': (By.CLASS_NAME, 'row'),
-        'bank_wire_btn': (By.CLASS_NAME, 'payment_module'),
-
+        'checkout_step_layer': '.cart_navigation',
+        'checkout_step_btn': '.button',
+        'checkout_checker_btn': 'id=uniform-cgv',
+        'pay_hook_id': 'id=HOOK_PAYMENT',
+        'pay_hook_class': '.row',
+        'bank_wire_btn': '.payment_module'
     }
 
     def checkout_and_complete_purchase(self):

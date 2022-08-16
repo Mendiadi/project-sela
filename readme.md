@@ -2,7 +2,7 @@
 # UI Testing Automation Project.
 
 In this project im testing a small part of the UI of automation practice store site.
-im using selenium lib.
+im using playwright lib.
 
 ## INFO:
 if test failed you can see a screenshot in allure reports
