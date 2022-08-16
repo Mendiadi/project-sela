@@ -1,9 +1,9 @@
 import logging
 import allure
 import pytest
-from selenium.webdriver import Chrome
+from selenium.webdriver import Chrome,Firefox
 from pages.main_page import MainPage
-from commons.init_json import TestsData
+from commons.init_json import TestsData,CHROME,FIREFOX
 from commons.driver import Driver
 
 LOGGER = logging.getLogger(__name__)
@@ -17,12 +17,18 @@ def init_data():
 
 @pytest.fixture
 def driver_fix(init_data):
-    driver = Chrome()
-    driver.get(init_data.url)
-    driver.maximize_window()
-    yield driver
-    driver.quit()
-
+    if init_data.browser == CHROME:
+        driver = Chrome()
+        driver.get(init_data.url)
+        driver.maximize_window()
+        yield driver
+        driver.quit()
+    if init_data.browser == FIREFOX:
+        driver = Firefox()
+        driver.get(init_data.url)
+        driver.maximize_window()
+        yield driver
+        driver.quit()
 
 @pytest.fixture
 def main_page(driver_fix, request):
