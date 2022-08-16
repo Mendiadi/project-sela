@@ -8,8 +8,8 @@ class AuthenticationPage(BasePage):
         super().__init__(driver)
 
     _locators = {
-        "email_entry": '[name=email]',
-        "pass_entry": '[name=passwd]',
+        "email_entry": 'id=email',
+        "pass_entry": 'id=passwd',
         "submit_login": "id=SubmitLogin",
         "message_layer": '.alert',
         "message_text": 'li'
@@ -26,14 +26,16 @@ class AuthenticationPage(BasePage):
         Perform send password to entry.
         :param password: (string) your password
         """
-        self.driver.locate_element(self._locators['pass_entry']).fill(password)
+        input_ = self.driver.locate_element(self._locators['pass_entry'])
+        self.driver.send_keys(input_, password)
 
     def send_email(self, email: str) -> None:
         """
         Perform send email to entry.
         :param email: (string) your email
         """
-        self.driver.locate_element(self._locators['email_entry']).fill(email)
+        input_ = self.driver.locate_element(self._locators['email_entry'])
+        self.driver.send_keys(input_, email)
 
     def login(self, email: str, password: str) -> MyAccountPage:
         """

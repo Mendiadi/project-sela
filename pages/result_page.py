@@ -1,3 +1,5 @@
+import time
+
 from pages.base_page import BasePage
 from commons.driver import Driver
 from playwright.sync_api import Page, ElementHandle
@@ -11,9 +13,7 @@ class ResultPage(BasePage):
     _locators = {
         "products": '.product-container',
         "product_link": '.product-image-container',
-        "right_block": '.right-block',
-        "price": '.content_price',
-        "price_span": 'span',
+        "price": '.product-price',
         "iframe_product": '.fancybox-iframe',
         'add_to_card_btn': 'id=add_to_cart',
         'checkout_layer': 'id=layer_cart',
@@ -28,6 +28,7 @@ class ResultPage(BasePage):
         :return: list of products that found
         :rtype: [ElementHandle]
         """
+        time.sleep(2)
         return self.driver.locate_elements(self._locators['products'])
 
     def find_cheapest_product(self) -> ElementHandle:
@@ -38,16 +39,12 @@ class ResultPage(BasePage):
         :return: cheapest product that found
         :rtype: ElementHandle
         """
+
         products = self.product_list()
         list_of_prices = []
         for product in products:
-            link = self.driver.query_select(self._locators['product_link'], product)
-            right_block = self.driver.query_select(self._locators['right_block'], product)
-            try:
-                prices = self.driver.query_select(self._locators['price'], right_block)
-                price = self.driver.query_select(self._locators["price_span"], prices)
-            except Exception:
-                price = self.driver.query_select(self._locators['price'], right_block)
+            link = self.driver.locate_element(self._locators['product_link'], product)
+            price = self.driver.locate_element(self._locators['price'], product)
             list_of_prices.append((link, float(price.text_content().replace("$", ""))))
         dress = min(list_of_prices, key=lambda t: t[1])[0]
         return dress

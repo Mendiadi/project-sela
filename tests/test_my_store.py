@@ -22,7 +22,7 @@ def driver_fix(init_data):
     screensize = {"width": user32.GetSystemMetrics(78), "height": user32.GetSystemMetrics(79)}
     if init_data.browser == CHROME:
         with sync_playwright() as p:
-            driver = p.chromium.launch(headless=False)
+            driver = p.chromium.launch(headless=False, timeout=60000)
             page = driver.new_page()
             page.set_viewport_size(screensize)
             page.goto(init_data.url)
@@ -124,8 +124,8 @@ def test_login_search_buy_cheapest(main_page, init_data):
     LOGGER.info(f"login search choose cheapest dress and buy.")
     authentication_page = main_page.sign_in()
     my_acc_page = authentication_page.login(email=init_data.email, password=init_data.password)
-    main_page_ = my_acc_page.click_home()
-    result_page = main_page_.search("summer")
+    # main_page_ = my_acc_page.click_home()
+    result_page = my_acc_page.search("summer")
     dress = result_page.find_cheapest_product()
     result_page.add_product_to_cart(dress)
     checkout_page = result_page.process_to_checkout()

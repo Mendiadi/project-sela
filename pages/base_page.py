@@ -18,7 +18,8 @@ class BasePage:
         :rtype: ResultPage
         """
         from pages.result_page import ResultPage
-        self.driver.locate_element(self._common_locators['search_q']).send_keys(query)
+        input_ = self.driver.locate_element(self._common_locators['search_q'])
+        self.driver.send_keys(input_,query)
         self.driver.locate_element(self._common_locators['search']).click()
         return ResultPage(self.driver)
 
