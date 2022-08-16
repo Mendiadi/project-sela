@@ -1,0 +1,6 @@
+.pytest_cache
+.idea
+/tests/.pytest_cache
+/tests/reports
+/tests/chromedriver.exe
+
