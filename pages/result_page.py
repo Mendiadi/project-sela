@@ -59,7 +59,7 @@ class ResultPage(BasePage):
         :param product: WebElement type - product
         """
         product.click()
-        self.driver.locate_and_switch_to_frame(self._locators['iframe_product'])
+        self.driver.locate_frame(self._locators['iframe_product'])
         self.driver.locate_element(self._locators['add_to_card_btn']).click()
 
     def process_to_checkout(self) -> CheckOutPage:

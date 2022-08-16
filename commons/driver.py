@@ -10,6 +10,11 @@ class Driver:
 
     @staticmethod
     def send_keys(locator: WebElement, keys: str) -> None:
+        """
+        send keys to locator
+        :param locator: input locator
+        :param keys: some string
+        """
         locator.send_keys(keys)
 
     def locate_element(self, locator: tuple[[], str], driver: [] = None, wait: int = 5, mark=False) -> WebElement:
@@ -40,7 +45,7 @@ class Driver:
         elements = WebDriverWait(self._driver, wait).until(EC.presence_of_all_elements_located(locator))
         return elements
 
-    def locate_and_switch_to_frame(self, locator: tuple[[], str], wait: int = 5):
+    def locate_frame(self, locator: tuple[[], str], wait: int = 5):
         """
        Locating frame with wait timeout
        :param locator: tuple - (By,str) - locator
