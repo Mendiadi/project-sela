@@ -55,7 +55,7 @@ class ResultPage(BasePage):
         :param product: ElementHandle type - product
         """
         product.click()
-        frame = self.driver.locate_element(self._locators['iframe_product'])
+        frame = self.driver.locate_frame(self._locators['iframe_product'])
         self.driver.locate_element(self._locators['add_to_card_btn'], frame).click()
 
     def process_to_checkout(self) -> CheckOutPage:

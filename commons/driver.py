@@ -1,4 +1,4 @@
-from playwright.sync_api import Page, Locator, ElementHandle
+from playwright.sync_api import Page, Locator, ElementHandle, FrameLocator
 
 
 class Driver:
@@ -6,7 +6,12 @@ class Driver:
         self._driver = driver
 
     @staticmethod
-    def send_keys(locator_, keys: str) -> None:
+    def send_keys(locator_: [], keys: str) -> None:
+        """
+        Send keys to input
+        :param locator_: element locator to send keys
+        :param keys: some string
+        """
         locator_.fill(keys)
 
     def locate_element(self, locator: str, driver: [] = None) -> [Locator, ElementHandle]:
@@ -40,6 +45,16 @@ class Driver:
         return elements
         # else:
         #     raise TimeoutError
+
+    def locate_frame(self, locator: str) -> FrameLocator:
+        """
+        Locate frame
+        :param locator: frame locator
+        :return: frame
+        :rtype: FrameLocator
+        """
+        frame = self._driver.frame_locator(locator)
+        return frame
 
     def script_execute(self, __script: str):
         """
