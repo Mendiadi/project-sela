@@ -6,13 +6,14 @@ from pages.main_page import MainPage
 from commons.init_json import TestsData, CHROME, FIREFOX
 from commons.driver import Driver
 import ctypes
+from commons.constant import *
 
 LOGGER = logging.getLogger(__name__)
 
 
 @pytest.fixture
 def init_data():
-    data = TestsData.load("init.json")
+    data = TestsData.load(DATA_FILE)
     return data
 
 
@@ -20,23 +21,19 @@ def init_data():
 def driver_fix(init_data):
     user32 = ctypes.windll.user32
     screensize = {"width": user32.GetSystemMetrics(78), "height": user32.GetSystemMetrics(79)}
-    if init_data.browser == CHROME:
-        with sync_playwright() as p:
-            driver = p.chromium.launch(headless=False, timeout=60000)
-            page = driver.new_page()
-            page.set_viewport_size(screensize)
-            page.goto(init_data.url)
-            yield page
-            driver.close()
 
-    if init_data.browser == FIREFOX:
-        with sync_playwright() as p:
+    with sync_playwright() as p:
+        if init_data.browser == CHROME:
+            driver = p.chromium.launch(headless=False, timeout=60000)
+        if init_data.browser == FIREFOX:
             driver = p.firefox.launch(headless=False)
-            page = driver.new_page()
-            page.set_viewport_size(screensize)
-            page.goto(init_data.url)
-            yield page
-            driver.close()
+        page = driver.new_page()
+        page.set_viewport_size(screensize)
+        page.goto(init_data.url)
+        yield page
+        driver.close()
+
+
 
 
 @pytest.fixture
