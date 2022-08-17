@@ -3,7 +3,7 @@ import allure
 import pytest
 from selenium.webdriver import Chrome, Firefox
 from pages.main_page import MainPage
-from commons.init_json import TestsData, CHROME, FIREFOX
+from commons.init_json import *
 from commons.driver import Driver
 
 LOGGER = logging.getLogger(__name__)
@@ -11,7 +11,7 @@ LOGGER = logging.getLogger(__name__)
 
 @pytest.fixture
 def init_data():
-    data = TestsData.load("init.json")
+    data = TestsData.load(DATA_FILE)
     return data
 
 
@@ -19,16 +19,12 @@ def init_data():
 def driver_fix(init_data):
     if init_data.browser == CHROME:
         driver = Chrome()
-        driver.get(init_data.url)
-        driver.maximize_window()
-        yield driver
-        driver.quit()
     if init_data.browser == FIREFOX:
         driver = Firefox()
-        driver.get(init_data.url)
-        driver.maximize_window()
-        yield driver
-        driver.quit()
+    driver.get(init_data.url)
+    driver.maximize_window()
+    yield driver
+    driver.quit()
 
 
 @pytest.fixture

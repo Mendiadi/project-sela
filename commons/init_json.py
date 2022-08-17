@@ -35,6 +35,11 @@ class TestsData:
         :return: object with the data
         :rtype: TestsData
         """
-        with open(path, "r") as json_file:
-            json_file = json.load(json_file)
+        try:
+            with open(path, "r") as json_file:
+                json_file = json.load(json_file)
+        except FileNotFoundError:
+            with open(rf"{PACKAGE_NAME}\{path}", "r") as json_file:
+                json_file = json.load(json_file)
+
         return TestsData(**json_file)
