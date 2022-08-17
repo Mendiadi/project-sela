@@ -24,13 +24,11 @@ class Driver:
         """
         if driver is None:
             driver = self._driver
-
         try:
             element = driver.locator(locator)
-
-            return element
         except:
             element = driver.query_selector(locator)
+        finally:
             return element
 
     def locate_elements(self, locator: str) -> [ElementHandle]:
@@ -80,5 +78,5 @@ class Driver:
         """
         return self._driver.title()
 
-    def text(self,locator) -> str:
-        return locator.content_text()
+    def text(self,locator:Locator) -> str:
+        return locator.text_content()

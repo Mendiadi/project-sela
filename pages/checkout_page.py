@@ -1,3 +1,5 @@
+import time
+
 from pages.base_page import BasePage
 from commons.driver import Driver
 
@@ -11,7 +13,7 @@ class CheckOutPage(BasePage):
         'checkout_step_btn': '.button',
         'checkout_checker_btn': 'id=uniform-cgv',
         'pay_hook_id': 'id=HOOK_PAYMENT',
-        'pay_hook_class': '.row',
+        'pay_hook_class': '.bankwire',
         'bank_wire_btn': '.payment_module'
     }
 
@@ -23,9 +25,12 @@ class CheckOutPage(BasePage):
         self.click_process_continue()
         self.driver.locate_element(self._locators['checkout_checker_btn']).click()
         self.click_process_continue()
+        time.sleep(1)
         pay_hook_layer = self.driver.locate_element(self._locators['pay_hook_id'])
-        btn_layer_class = self.driver.locate_element(self._locators['pay_hook_class'], pay_hook_layer)
-        self.driver.locate_element(self._locators['bank_wire_btn'], btn_layer_class).click()
+        time.sleep(1)
+        btn_layer_class = self.driver.locate_element(self._locators['bank_wire_btn'], pay_hook_layer)
+        time.sleep(1)
+        self.driver.locate_element(self._locators['pay_hook_class'], btn_layer_class).click()
         self.click_process_continue()
 
     def click_process_continue(self):

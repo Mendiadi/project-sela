@@ -23,7 +23,7 @@ class TestsData:
             raise TypeError(f"password that given in init.json file are {type(self.password)} but needs to be str")
         if not isinstance(self.browser, str):
             raise TypeError(f"browser that given in init.json file are type  {type(self.url)} but needs to be str")
-        if self.browser not in BROWSERS:
+        if self.browser.lower() not in BROWSERS:
             raise Exception(f"Browser {self.browser} is unrecognized. must be {CHROME} or {FIREFOX}")
 
     @staticmethod
