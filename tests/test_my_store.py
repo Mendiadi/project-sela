@@ -76,7 +76,7 @@ def test_login_wrong_password(main_page, init_data):
 
 
 @pytest.mark.invalid
-def test_login_wrong_email(main_page, init_data):
+def test_login_wrong_email(main_page):
     LOGGER.info("login wrong email test")
     authentication_page = main_page.sign_in()
     authentication_page.login(email="wrong!email@aa.co", password="mypass11")
@@ -85,7 +85,7 @@ def test_login_wrong_email(main_page, init_data):
 
 
 @pytest.mark.invalid
-def test_login_without_email(main_page, init_data):
+def test_login_without_email(main_page):
     LOGGER.info("login without email test")
     authentication_page = main_page.sign_in()
     authentication_page.login(email="", password="mypass11")
@@ -102,7 +102,7 @@ def test_login_without_password(main_page, init_data):
     assert authentication_page.get_authentication_message() == 'Password is required.'
 
 @pytest.mark.invalid
-def test_login_invalid_email(main_page, init_data):
+def test_login_invalid_email(main_page):
     LOGGER.info("login without password test ")
     authentication_page = main_page.sign_in()
     authentication_page.login(email="v4vh666", password="bnv")
@@ -110,7 +110,7 @@ def test_login_invalid_email(main_page, init_data):
     assert authentication_page.get_authentication_message() == 'Invalid email address.'
 
 @pytest.mark.invalid
-def test_login_without_email_and_password(main_page, init_data):
+def test_login_without_email_and_password(main_page):
     LOGGER.info(f"login without email and password test")
     authentication_page = main_page.sign_in()
     authentication_page.login(email="", password="")
