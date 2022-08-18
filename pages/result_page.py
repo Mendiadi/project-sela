@@ -49,7 +49,7 @@ class ResultPage(BasePage):
                 price = self.driver.locate_element(self._locators["price_span"], prices)
             except Exception:
                 price = self.driver.locate_element(self._locators['price'], right_block)
-            list_of_prices.append((link, float(price.text.replace("$", ""))))
+            list_of_prices.append((link, float(self.driver.text(price).replace("$", ""))))
         dress = min(list_of_prices, key=lambda t: t[1])[0]
         return dress
 

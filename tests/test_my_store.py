@@ -97,6 +97,7 @@ def test_login_without_password(main_page, init_data):
     LOGGER.info(f"title: {authentication_page.title},msg: {authentication_page.get_authentication_message()}")
     assert authentication_page.get_authentication_message() == 'Password is required.'
 
+
 @pytest.mark.invalid
 def test_login_invalid_email(main_page):
     LOGGER.info("login without password test ")
@@ -104,6 +105,7 @@ def test_login_invalid_email(main_page):
     authentication_page.login(email="v4vh666", password="bnv")
     LOGGER.info(f"title: {authentication_page.title},msg: {authentication_page.get_authentication_message()}")
     assert authentication_page.get_authentication_message() == 'Invalid email address.'
+
 
 @pytest.mark.invalid
 def test_login_without_email_and_password(main_page):
@@ -125,5 +127,5 @@ def test_login_search_buy_cheapest(main_page, init_data):
     result_page.add_product_to_cart(dress)
     checkout_page = result_page.process_to_checkout()
     checkout_page.checkout_and_complete_purchase()
-    LOGGER.info(f"title: {authentication_page.title},msg: {authentication_page.get_authentication_message()}")
+    LOGGER.info(f"title: {checkout_page.title}")
     assert checkout_page.title == 'Order confirmation - My Store'

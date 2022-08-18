@@ -86,6 +86,11 @@ class Driver:
         """
         return self._driver.title
 
-
-    def text(self,locator) -> str:
+    @staticmethod
+    def text(locator) -> str:
+        """
+        getting the text of locator
+        :param locator: element/locator
+        :return: string of text content
+        """
         return locator.text

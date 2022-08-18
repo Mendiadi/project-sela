@@ -60,4 +60,3 @@ class AuthenticationPage(BasePage):
         layer = self.driver.locate_element(self._locators['message_layer'])
         text = self.driver.locate_element(self._locators['message_text'], layer)
         return self.driver.text(text)
-
