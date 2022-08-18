@@ -45,7 +45,7 @@ class ResultPage(BasePage):
         for product in products:
             link = self.driver.locate_element(self._locators['product_link'], product)
             price = self.driver.locate_element(self._locators['price'], product)
-            list_of_prices.append((link, float(price.text_content().replace("$", ""))))
+            list_of_prices.append((link, float(self.driver.text(price).replace("$", ""))))
         dress = min(list_of_prices, key=lambda t: t[1])[0]
         return dress
 

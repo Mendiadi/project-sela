@@ -18,5 +18,5 @@ class MyAccountPage(BasePage):
         :rtype: MainPage
         """
         from pages.main_page import MainPage
-        self.driver.locate_element(self._locators['icon_home'], mark=True).click()
+        self.driver.locate_element(self._locators['icon_home']).click()
         return MainPage(self.driver)

@@ -1,7 +1,8 @@
 import inspect
 
 from playwright.sync_api import Page, Locator, ElementHandle, FrameLocator
-import  os
+import os
+
 
 class Driver:
     def __init__(self, driver: Page):
@@ -69,7 +70,7 @@ class Driver:
         :return: screenshot
         :rtype: bytes
         """
-        return self._driver.screenshot(type="png",path=os.path.join("ui_with_page_object", "img_.png"))
+        return self._driver.screenshot(type="png", path=os.path.join("ui_with_page_object", "img_.png"))
 
     @property
     def title(self) -> str:
@@ -80,5 +81,11 @@ class Driver:
         """
         return self._driver.title()
 
-    def text(self,locator:Locator) -> str:
+    @staticmethod
+    def text(locator: Locator) -> str:
+        """
+        getting text of locator
+        :param locator: element/locator
+        :return: string of text content
+        """
         return locator.text_content()

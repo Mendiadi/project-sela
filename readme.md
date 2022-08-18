@@ -31,23 +31,23 @@ and the driver.exe is there otherwise program will not find driver path
 will run all tests and use default settings - Chrome browser
 
 ```commandline
-    pytest ./tests/test_ui_with_selenium.py
+    pytest test_my_store.py
 ```
 
 #### Run specific marker:
 
 ##### valid:
 ```commandline
-    pytest -m valid ./tests/test_ui_with_selenium.py
+    pytest -m valid test_my_store.py
 ```
 ##### invalid:
 ```commandline
-    pytest -m invalid ./tests/test_ui_with_selenium.py
+    pytest -m invalid test_my_store.py
 ```
 
 ### Allure reports:
 ```commandline
-    pytest --alluredir=reports\ ./tests/test_ui_with_selenium.py
+    pytest --alluredir=reports\ test_my_store.py
 ```
 ```commandline
     allure serve reports/

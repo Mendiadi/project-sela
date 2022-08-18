@@ -3,7 +3,7 @@ import allure
 import pytest
 from playwright.sync_api import sync_playwright
 from pages.main_page import MainPage
-from commons.init_json import TestsData, CHROME, FIREFOX
+from commons.init_json import TestsData
 from commons.driver import Driver
 import ctypes
 from commons.constant import *
@@ -32,8 +32,6 @@ def driver_fix(init_data):
         page.goto(init_data.url)
         yield page
         driver.close()
-
-
 
 
 @pytest.fixture
@@ -114,6 +112,7 @@ def test_login_invalid_email(main_page):
     authentication_page.login(email="v4vh666", password="bnv")
     LOGGER.info(f"title: {authentication_page.title},msg: {authentication_page.get_authentication_message()}")
     assert authentication_page.get_authentication_message() == 'Invalid email address.'
+
 
 @pytest.mark.invalid
 def test_login_without_email_and_password(main_page):
